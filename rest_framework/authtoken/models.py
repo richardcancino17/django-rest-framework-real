@@ -5,7 +5,6 @@ from django.conf import settings
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-from apps.account.models import Contacts,User,Business
 
 @python_2_unicode_compatible
 class Token(models.Model):
@@ -14,7 +13,7 @@ class Token(models.Model):
     """
     key = models.CharField(_("Key"), max_length=40, primary_key=True)
     user = models.OneToOneField(
-        User, related_name='auth_token_user',
+        settings.AUTH_USER_MODEL, related_name='auth_token_user',
         on_delete=models.CASCADE, verbose_name=_("User"),blank=True,null=True
     )
     created = models.DateTimeField(_("Created"), auto_now_add=True)
